@@ -5,6 +5,17 @@
     android:layout_height="match_parent"
     android:padding="10dp">
 
+
+    <TextView
+        android:id="@+id/row_no"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:paddingEnd="10dp"
+        android:text="1"
+        android:textSize="17sp"
+        android:textStyle="bold" />
+
     <EditText
         android:id="@+id/editTextTextPersonName"
         android:layout_width="0dp"
@@ -12,7 +23,7 @@
         android:layout_weight="1"
         android:ems="10"
         android:inputType="phone"
-        android:text="Enter phone number"
+        android:hint="@string/hint_phone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -20,7 +31,7 @@
         android:id="@+id/imageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="?attr/selectableItemBackground"
+        android:background="?attr/selectableItemBackgroundBorderless"
         android:padding="10dp"
         app:srcCompat="@drawable/ic_baseline_add_circle_outline_24" />
 
@@ -29,7 +40,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        android:background="?attr/selectableItemBackground"
+        android:background="?attr/selectableItemBackgroundBorderless"
         android:padding="10dp"
         app:srcCompat="@drawable/ic_baseline_remove_circle_outline_24" />
 

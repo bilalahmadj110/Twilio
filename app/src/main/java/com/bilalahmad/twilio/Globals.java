@@ -2,25 +2,52 @@ package com.bilalahmad.twilio;
 
 public class Globals {
 
+
     /**
-     * You can get these variable values from TWILIO
-     * https://www.twilio.com/console
+     * Domain name
      */
-    public static final String ACCOUNT_SID = "AC5d9a25d04cde4b4ba378ca620ff12eeb";
-    public static final String AUTH_TOKEN = "5dfd9952db1ca1c091651e91d0d9a41f";
+    public static final String HOST = "https://1a5fdcaede08.ngrok.io/asad/code/index.php/";
+    /**
+     * Get response data
+     * 1. start
+     * 2. end
+     */
+    public static final String GET_RESPONSE = HOST + "twilio/get?start=%d&end=%d";
+    /**
+     * 1. from phone number  (from twilio)
+     * 2. to number (client number) --  may contain list ["Phone1", "Phone2", "Phone3", ..., "Phone n"]
+     * 3. speech msg
+     */
+    public static final String SEND_DATA = HOST + "twilio/send?from=%s&to=%s&msg=%s";
+
+
     public static final String FROM_NUMBER = "+18646488898";
+
+    public static final int MAX_ROWS = 5;
+
 
     /**
      * How many times request must retry before throwing error
      */
     public static final int RETRY_COUNT = 2;
+    /**
+     * Time wait before trying failed request (ms)
+     */
+    public static final int TIME_WAIT_REQUEST_FAILED = 400;
 
     /**
      * Few errors
      */
-    public static final String INTERNET_ERROR_TITLE = "No internet";
+    public static final String INTERNET_ERROR_TITLE = "No internet connection!";
     public static final String INTERNET_ERROR = "It seems you're offline, please connect to wifi or turn on data, then try again.";
-    public static final String EMPTY_ERROR = "";
+    public static final String EMPTY_ERROR = "There isn't any response found on server's database. Please request new calls, retry, to get here.";
+    public static final String EMPTY_ERROR_TITLE = "No responses available";
+    public static final String RESPONSE_ERROR_TITLE = "Invalid response";
+    public static final String RESPONSE_ERROR = "Something bad happened on our end, please try again or contact administrator.";
+    /**
+     * Item download per request
+     */
+    public static final int ITEMS_PER_PAGE = 10;
 
 
     /**

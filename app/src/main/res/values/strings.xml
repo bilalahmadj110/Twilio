@@ -7,7 +7,18 @@
     <string name="outgoing_call_icon">OUTGOING_CALL_ICON</string>
     <string name="ingoing_call_icon">INGOING_CALL_ICON</string>
     <string name="sample_num">+92 333 1234567</string>
-    <string name="sample_response">1</string>
-    <string name="speech_msg">Text to speech message...</string>
+    <string name="sample_response">##</string>
+    <string name="speech_msg">Text to speech message…</string>
     <string name="phone_numbers_lbl">Phone numbers</string>
+
+    <!--    LOADING RESPONSES MESSAGE-->
+    <string name="loading_msg">Getting available response, please hold on…</string>
+
+    <string name="loading_more">Loading more data…</string>
+
+    <string name="retry_button">Retry</string>
+    <string name="hint_phone">Enter phone number</string>
+
+    <string name="max_phone_error">You\'re only allowed to add maximum %d numbers.</string>
+
 </resources>

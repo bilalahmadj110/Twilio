@@ -25,31 +25,29 @@ public class NetworkingRouter {
 
     private boolean fromUI = true;
     private CallbackNetwork callbackNetwork;
-    private String url, parameter;
+    private String url;
     private LinearLayout loadView;
     private LinearLayout errorView;
     private View container;
 
-    public NetworkingRouter(String url, String parameter, LinearLayout loadView,
+    public NetworkingRouter(String url, LinearLayout loadView,
                             LinearLayout errorView, View container) {
         this.url = url;
-        this.parameter = parameter;
         this.loadView = loadView;
         this.errorView = errorView;
         this.container = container;
     }
 
-    public NetworkingRouter(String url, String parameter) {
+    public NetworkingRouter(String url) {
         fromUI = false;
         this.url = url;
-        this.parameter = parameter;
     }
 
     public void startNetworking() {
         if (callbackNetwork == null) {
             return;
         }
-        MLog.log(url + " <> " + parameter);
+        MLog.log(url + " <> ");
 
         callbackNetwork.startLoading();
 
@@ -107,11 +105,6 @@ public class NetworkingRouter {
     @SuppressLint("StaticFieldLeak")
     private class NetworkClass extends AsyncTask<Void, Integer, String> {
 
-        @Override
-        protected void onProgressUpdate(Integer... values) {
-            callbackNetwork.onProgress(values[0], values[1]);
-        }
-
         String performGetCall(String requestURL) {
             URL url;
             StringBuilder response = new StringBuilder();
@@ -120,9 +113,9 @@ public class NetworkingRouter {
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setReadTimeout(15000);
                 conn.setConnectTimeout(6000);
-                conn.setRequestMethod("GET");
-                conn.setDoInput(true);
-                conn.setDoOutput(true);
+//                conn.setDoOutput(true);
+                conn.setRequestProperty("Accept", "application/json");
+                conn.connect();
                 int responseCode = conn.getResponseCode();
                 int length = conn.getContentLength();
                 int downloaded = 0;
@@ -167,7 +160,7 @@ public class NetworkingRouter {
                     e.printStackTrace();
                     try {
                         // Waiting 400ms before retrying request...
-                        Thread.sleep(400);
+                        Thread.sleep(Globals.TIME_WAIT_REQUEST_FAILED);
                     } catch (InterruptedException ex) {
                         ex.printStackTrace();
                     }
@@ -187,12 +180,15 @@ public class NetworkingRouter {
                     try {
                         JSONObject jsonObject = new JSONObject(response);
                         if (jsonObject.getInt("code") == 200) {
-                            if (callbackNetwork != null)
+                            if (callbackNetwork != null) {
                                 callbackNetwork.onResponse(jsonObject);
+                                return;
+                            }
                         } else {
-                            throw new JSONException("response");
+                            String[] codeNMsg = find(response);
+                            title = codeNMsg[0] + " (" + codeNMsg[1].split("\n")[0] + ")";
+                            msg = codeNMsg[1].split("\n")[1];
                         }
-                        return;
                     } catch (JSONException e) {
                         e.printStackTrace();
                         title = "Request failed";
